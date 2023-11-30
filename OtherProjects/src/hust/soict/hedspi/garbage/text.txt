@@ -1,0 +1,6 @@
+Some suggestions:
+- Read a text/binary file to a String without using StringBuffer to concatenate String (only use + operator). Observe and capture your screen when you choose a very long file
+- Improve the code using StringBuffer.
+The following piece of code is a suggestion for your implementation
+Change the code in line 14-17 above to use StringBuffer instead of “+” operator to build string and
+observe result
