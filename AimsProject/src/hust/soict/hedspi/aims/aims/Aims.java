@@ -8,6 +8,10 @@ package hust.soict.hedspi.aims.aims;
  *
  */
 import java.util.Scanner;
+import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+
+import java.util.Scanner;
 
 public class Aims {
 	public static void main(String [] args) {
@@ -31,11 +35,14 @@ public class Aims {
 		anOrderCart.addDigitalVideoDisc(dvd5);
 		anOrderCart.addDigitalVideoDisc(dvd5);
 		
+		anOrderCart.removeDigitalVideoDisc(dvd5);
 		//In ra total cost
 		System.out.print("Total cost is: ");
 		System.out.println(anOrderCart.totalCost());
 		// In ra quantity
 		System.out.print("Dvd quantity in cart: ");
 		System.out.println(anOrderCart.qtyOrdered);
+		// In ra danh sách giỏ hàng
+		anOrderCart.printCart();
 	}
 }
