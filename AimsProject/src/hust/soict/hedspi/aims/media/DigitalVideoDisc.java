@@ -1,80 +1,55 @@
 package hust.soict.hedspi.aims.media;
 
-import java.lang.String;
-
-public class DigitalVideoDisc extends Disc {
-	private static int nbDigitalVideoDisc = 0;
-	private String title;
-	private String category;
-	private String directory;
-	private int lenght;
-	private float cost;
-	public int id = nbDigitalVideoDisc;
-	
-	public DigitalVideoDisc(String title) {
-	    super(0, title, "", 0.0f);
-	    nbDigitalVideoDisc++;
-	}
+public class DigitalVideoDisc extends Disc implements Playable {
 
 	public DigitalVideoDisc(String title, String category, float cost) {
-	    super(0, title, category, cost);
-	    nbDigitalVideoDisc++;
+		super(title, category, cost);
+		// TODO Auto-generated constructor stub
 	}
 
-	public DigitalVideoDisc(String title, String category, String directory, float cost) {
-	    super(0, title, category, cost);
-	    this.directory = directory;
-	    nbDigitalVideoDisc++;
+	public DigitalVideoDisc(String title, String category, String director, float cost) {
+		super(title, category, director, cost);
+		// TODO Auto-generated constructor stub
 	}
 
-	public DigitalVideoDisc(String title, String category, String directory, int length, float cost) {
-	    super(0, title, category, cost);
-	    this.directory = directory;
-	    this.length = length;
-	    nbDigitalVideoDisc++;
+	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
+		super(title, category, director, length, cost);
+		// TODO Auto-generated constructor stub
+	}
+
+	public DigitalVideoDisc(String title, String category) {
+		super(title, category);
+		// TODO Auto-generated constructor stub
+	}
+
+	public DigitalVideoDisc(String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
 	}
 	
-	public String getTitle() {
-		return title;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public void setDirectory(String directory) {
-		this.directory = directory;
-	}
-	public void setLenght(int lenght) {
-		this.lenght = lenght;
-	}
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-	public String getDirectory() {
-		return directory;
-	}
-	public int getLenght() {
-		return lenght;
-	}
-	public float getCost() {
-		return cost;
+	public boolean isMatch(String title) {
+	    String[] keywords = title.toLowerCase().split(" ");
+	    String discTitle = this.getTitle().toLowerCase();
+	    for (String keyword : keywords) {
+	        if (!discTitle.contains(keyword)) {
+	            return false;
+	        }
+	    }
+	    return true;
 	}
 	
-	// In ra thông tin sản phẩm bao gồm, tiêu đề, category, drectory, chiều dài, giá
 	@Override
-	public String toString() {
-		return "DVD - " + title + " - " + category + " - " + directory + " - "
-				+ lenght + ": " + cost + "$";
-	}
+    public String toString() {
+        return super.toString() + ", Director: " + getDirector() + ", Length: " + getLength();
+    }
 	
-	// Hàm kiểm tra xem title nhập vào có trùng với title trong giỏ hàng không
+	@Override
+    public void play() {
+        System.out.println("Playing DVD: " + getTitle());
+        System.out.println("DVD Length: " + getLength());
+    }
 	public boolean isMatchTitle(String title1) {
 		return this.getTitle().equals(title1);
 	}
-	
+
 }
