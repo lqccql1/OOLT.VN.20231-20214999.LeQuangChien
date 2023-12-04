@@ -1,9 +1,10 @@
 package hust.soict.hedspi.aims.cart;
 
+import hust.soict.hedspi.aims.media.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 
 public class Cart {
 	
@@ -13,23 +14,12 @@ public class Cart {
 
 	public int qtyOrdered = 0;  // Số lượng thực tế DVD trong giỏ hàng
 
-	
-	/**
-	 * Removes the digital video disc.
-	 *
-	 * @param disc the disc
-	 */
 	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
 		itemsOderedList.remove(disc);
 		System.out.println("The disc " + disc.getTitle() + " has been removed");
 		qtyOrdered = itemsOderedList.size();
 	}
 
-	/**
-	 * Adds the digital video disc.
-	 *
-	 * @param disc the disc
-	 */
 	public void addDigitalVideoDisc(DigitalVideoDisc disc) {
 		// Nếu số lượng chưa max thì có thể thêm
 		if(qtyOrdered < MAX_NUMBERS_ORDERED) {
@@ -43,11 +33,6 @@ public class Cart {
 		else System.out.println("The cart is almost full");
 	}
 	
-	/**
-	 * Adds the digital video disc.
-	 *
-	 * @param dvdList the dvd list
-	 */
 	public void addDigitalVideoDisc(DigitalVideoDisc [] dvdList){
 		for(int i = 0; i < dvdList.length; i++) {
 			// Nếu số lượng chưa max thì có thể thêm
@@ -61,18 +46,10 @@ public class Cart {
 		}
 	}
 	
-	/**
-	 * Adds the digital video disc.
-	 */
 	public void addDigitalVideoDisc() {
 		
 	}
 	
-	/**
-	 * Total cost.
-	 *
-	 * @return the float
-	 */
 	//Tính tổng giá tiền dvd trong giỏ
 	public float totalCost() {
 		for(int i = 0; i < itemsOderedList.size(); i++) {
@@ -81,9 +58,6 @@ public class Cart {
 		return totalcost;
 	}
 	
-    /**
-     * Prints the cart.
-     */
     public void printCart() {
         System.out.println("***********************CART***********************");
         System.out.println("Ordered Items:");
@@ -98,11 +72,6 @@ public class Cart {
     }
 
     
-    /**
-     * Search cart id.
-     *
-     * @param id the id
-     */
     public void searchCartId() {
     	int id, dem = 0;
     	Scanner keyboard =  new Scanner(System.in);
@@ -125,16 +94,11 @@ public class Cart {
     }
     
 
-    
-    /**
-     * Search cart by title.
-     *
-     * @param title the title
-     */
     public void searchCartTitle() {
     		String title1;
     		int dem = 0;
     		Scanner keyboard = new Scanner(System.in);
+    		String checkString = "1";
     		System.out.println("Input title: ");
     		title1 = keyboard.nextLine();
     		for(int i = 0; i < itemsOderedList.size(); i++) {
