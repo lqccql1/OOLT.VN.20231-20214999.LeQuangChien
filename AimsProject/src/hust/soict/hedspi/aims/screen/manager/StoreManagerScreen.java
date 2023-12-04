@@ -1,8 +1,6 @@
 package hust.soict.hedspi.aims.screen.manager;
 
-
-import hust.soict.hedspi.aims.store.*;
-import hust.soict.hedspi.aims.cart.*;
+import hust.soict.hedspi.aims.cart.Cart;
 import hust.soict.hedspi.aims.media.*;
 
 import java.awt.BorderLayout;
@@ -13,13 +11,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -29,7 +24,8 @@ import javax.swing.JPanel;
 
 public class StoreManagerScreen extends JFrame {
 	private Store store;
-	private Cart cart;
+	
+	private static final long serialVersionUID = 123456789L;
 
 	public static void main(String[] args) throws Exception {
 		//Test
@@ -37,33 +33,36 @@ public class StoreManagerScreen extends JFrame {
 		Cart myCart = new Cart();
 
 		//Create DVDs
-		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
-		Track track1 = new Track("Bruh1", 13);
-		Track track2 = new Track("Bruh2", 21);
-		Track track3 = new Track("Bruh3");
-		CompactDisc cd1 = new CompactDisc("Allstars", "Yes", "Smash Mouth", "Dunno", 69.420f);
-		cd1.addTrack(track1);
-		cd1.addTrack(track2);
-		CompactDisc cd2 = new CompactDisc("Allstars 2", "Yes", "Smash Mouth", "Dunno", 69.420f);
-		cd2.addTrack(track1);
-		cd2.addTrack(track3);
-		cd2.addTrack(track2);
-		Book book1 = new Book("Sherlock Holmes", "Detective", 420, 5f);
+		DigitalVideoDisc dvd1 = new DigitalVideoDisc("Comic","Harry Potter and the Philosopher's Stone (2001)", 3.0f);
+		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Comic","Harry Potter and the Chamber of Secrest (2002)", 3.5f);
+		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Comic","Harry Potter and the Prisoner of Azzkaba (2004)", 5.0f);
+		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Comic","Harry Potter and the Goblet of Fire (2005)", 4.5f);
+		DigitalVideoDisc dvd5 = new DigitalVideoDisc("films","Fetch the Bolt Culters", 10.39f);
+		DigitalVideoDisc dvd6 = new DigitalVideoDisc("films","Future Nostalgia",9.6f);
+		Book book1 = new Book("", "The Hunger Games", 5.5f);
 		book1.addAuthor("Conan Doyle");
-		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Star Wars 2", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Star Wars 3", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd6 = new DigitalVideoDisc("Star Wars 4", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd7 = new DigitalVideoDisc("Star Wars 5", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd8 = new DigitalVideoDisc("Star Wars 6", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd9 = new DigitalVideoDisc("Star Wars 7", "Science Fiction", "George Lucas", 87, 24.95f);
-		DigitalVideoDisc dvd10 = new DigitalVideoDisc("Aladin2", "Animation", 18.99f);
+		Book book2 = new Book("", "Catching Fire", 4.9f);
+		book2.addAuthor("Conan Doyle");
+		Book book3 = new Book("", "Mockingjay", 5.1f);
+		book3.addAuthor("Conan Doyle");
+		
+		//Try adding DVDs
+//		myStore.addMedia(dvd2, 5);
+		myStore.addMedia(dvd2);
+		myStore.addMedia(dvd1);
+		myStore.addMedia(dvd3);
+		myStore.addMedia(dvd4);
+		myStore.addMedia(dvd5);
+		myStore.addMedia(dvd6);
+		myStore.addMedia(book1);
+		myStore.addMedia(book2);
+		myStore.addMedia(book3);
+		new StoreManagerScreen(myStore, myCart);
 	}
 	
-	public StoreScreen (Store store, Cart cart) {
+	
+	public StoreManagerScreen (Store store, Cart cart) {
 		this.store = store;
-		this.cart = cart;
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
 		
@@ -90,38 +89,16 @@ public class StoreManagerScreen extends JFrame {
 		return north;
 	}
 	
-	JPanel createCenter() {
-		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(5,5,2,2));
-		
-		ArrayList<Media> mediaInStore = store.getItemsInStore();
-		for (Media media: mediaInStore) {
-			MediaStore cell = new MediaStore(media, cart);
-			center.add(cell);
-		}
-		
-		return center;
-	}
-	
 	JMenuBar createMenuBar() {
 		JMenu menu = new JMenu("Options");
 		
-		JMenu smUpdateStore = new JMenu("Update Store");
-		JMenuItem addBook = new JMenuItem("Add Book");
-		addBook.addActionListener(new AddBookListener());
-		smUpdateStore.add(addBook);
-		JMenuItem addCD = new JMenuItem("Add CD");
-		addCD.addActionListener(new AddCDListener());
-		smUpdateStore.add(addCD);
-		JMenuItem addDVD = new JMenuItem("Add DVD");
-		addDVD.addActionListener(new AddDVDListener());
-		smUpdateStore.add(addDVD);
-		
-		menu.add(smUpdateStore);
 		menu.add(new JMenuItem("View store"));
-		JMenuItem cart = new JMenuItem("View cart");
-		cart.addActionListener(new ViewCartListener());
-		menu.add(cart);
+		
+		JMenu smUpdateStore = new JMenu("Update Store");
+		smUpdateStore.add(new JMenuItem("Add Book"));
+		smUpdateStore.add(new JMenuItem("Add CD"));
+		smUpdateStore.add(new JMenuItem("Add DVD"));
+		menu.add(smUpdateStore);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -138,18 +115,24 @@ public class StoreManagerScreen extends JFrame {
 		title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 50));
 		title.setForeground(Color.CYAN);
 		
-		JButton cart = new JButton("View cart");
-		cart.setPreferredSize(new Dimension(100,50));
-		cart.setMaximumSize(new Dimension(100,50));
-		cart.addActionListener(new ViewCartListener());
-		
 		header.add(Box.createRigidArea(new Dimension(10,10)));
 		header.add(title);
 		header.add(Box.createHorizontalGlue());
-		header.add(cart);
 		header.add(Box.createRigidArea(new Dimension(10,10)));
 		
 		return header;
 	}	
-
+	
+	JPanel createCenter() {
+		JPanel center = new JPanel();
+		center.setLayout(new GridLayout(3,3,2,2));
+		
+		ArrayList<Media> mediaInStore = store.getItemsInStore();
+		for (int i =0; i < 9; i++) {
+			MediaStore cell = new MediaStore(mediaInStore.get(i));
+			center.add(cell);
+		}
+		
+		return center;
+	}
 }
